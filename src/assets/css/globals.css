@@ -1,0 +1,82 @@
+body {
+  background-color: whitesmoke;
+  min-height: 100vh;
+}
+
+.logo {
+  height: 4rem;
+}
+
+.button {
+  margin-left: spacing(2);
+}
+
+.navbar-icons {
+  color: rgb(42, 42, 43);
+}
+
+.flex {
+  flex-grow: 1;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-padding {
+  padding-left: 79px;
+  padding-right: 79px;
+  margin-bottom: 2rem;
+}
+
+.App {
+  background-color: whitesmoke;
+}
+
+.media {
+  height: 250px;
+  padding-top: "56.25%";
+}
+
+.fade {
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.links {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.cartActions :hover {
+  color: #ffd54b;
+}
+
+.zoom:hover {
+  transform: scale(2.2);
+  transition: 1s;
+}
+
+.signButton:hover {
+  background-color: black;
+}
