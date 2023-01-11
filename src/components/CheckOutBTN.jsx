@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 export const CheckOutBTN = () => {
+  const counter = useSelector((state) => state.cart.counter);
   return (
     <Button
       className="cartActions"
@@ -11,9 +12,9 @@ export const CheckOutBTN = () => {
       to={ROUTES.CHECKOUT_STEPS}
       variant="contained"
       color="error"
+      disabled={counter === 0}
     >
-      <AttachMoneyIcon />
-      <strong color="error">Check Out</strong>
+      <strong sx={{ backgroundColor: "#ffd54b" }}>Check Out</strong>
     </Button>
   );
 };
