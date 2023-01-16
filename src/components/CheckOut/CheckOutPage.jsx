@@ -1,78 +1,68 @@
-import { Badge, Button, CardMedia, Stack, Typography } from "@mui/material";
+import { Badge, Button, Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useToastContext } from "../../context/ToastContext";
+import { CLEAR_CART } from "../../reducers/shoppingCartSlice";
+import NoItems from "../NoItems";
+import Toast from "../Toast";
 import CheckOutCard from "./CheckOutCard";
 import Total from "./Total";
-import img from "../../assets/images/empty-supermarket-cart.jpg";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "38%",
-};
 
 function FormRow() {
   const productToCheck = useSelector((state) => state.cart.productToCheck);
+
   return (
     <>
       {productToCheck.map((item) => (
-        <Grid key={item.id} item xs={12} sm={6} md={4}>
-          <Badge badgeContent={item.inCart} color="error">
-            <CheckOutCard prod={item} />
-          </Badge>
-        </Grid>
+        <Badge key={item.id} badgeContent={item.inCart} color="error">
+          <CheckOutCard prod={item} />
+        </Badge>
       ))}
     </>
   );
 }
 
 export default function CheckOutPage() {
+  const { handleToast, msg, type } = useToastContext();
   const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const productsToCheck = useSelector((state) => state.cart.productToCheck);
+  const dispatch = useDispatch();
 
-  return (
-    <Box sx={{ flexGrow: 1, padding: "2rem" }}>
+  return productsToCheck.length !== 0 ? (
+    <Box sx={{ flexGrow: 1, padding: "2rem", paddingBottom: "52vh" }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8} md={9}>
           <Button
             variant="contained"
             sx={{ backgroundColor: "#ffd54b" }}
             disabled={totalPrice === 0}
+            onClick={() => {
+              dispatch(CLEAR_CART());
+              handleToast("success", "Cart cleared succesfully!!");
+            }}
+            className="cartActions"
           >
-            <strong color="error">Clear Cart</strong>
+            <Typography variant="body2" color="initial">
+              Clear Cart
+            </Typography>
           </Button>
         </Grid>
 
-        <Grid item xs={12} sm={8} md={9} container spacing={2}>
-          <FormRow className="shoppinCard" />
-          <Stack
-            justifyContent="center"
-            alignItems="center"
-            sx={style}
-            spacing={3}
-          >
-            <CardMedia
-              component="img"
-              sx={{
-                objectFit: "contain",
-                height: "100px",
-                width: "100px",
-                marginTop: "1rem",
-                borderRadius: "50%",
-              }}
-              image={img}
-              alt="Empty Cart"
-            />
-            <Typography align="center" gutterBottom variant="h6">
-              Sorry the shopping cart is empty!!
-            </Typography>
-          </Stack>
-        </Grid>
         <Grid item xs={12} sm={4} md={3}>
           <Total />
         </Grid>
       </Grid>
+      <Stack sx={{ width: "70%" }} container spacing={5}>
+        <FormRow className="shoppinCard fade" />
+      </Stack>
+      <Toast type={type} msg={msg} />
     </Box>
+  ) : (
+    <>
+      <NoItems />
+      <Toast type={type} msg={msg} />
+    </>
   );
 }

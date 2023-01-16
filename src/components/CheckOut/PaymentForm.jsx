@@ -1,14 +1,12 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import ProductsContext from '../../context/ProductsContext';
-import { useContext } from 'react';
-
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import ProductsContext from "../../context/ToastContext";
+import { useContext } from "react";
 
 export default function PaymentForm() {
-
-  const{handleChangePayment} = useContext(ProductsContext)
+  const { handleChangePayment } = useContext(ProductsContext);
 
   return (
     <React.Fragment>

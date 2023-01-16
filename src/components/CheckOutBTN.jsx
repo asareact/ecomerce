@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
@@ -11,10 +11,12 @@ export const CheckOutBTN = () => {
       component={Link}
       to={ROUTES.CHECKOUT_STEPS}
       variant="contained"
-      color="error"
       disabled={counter === 0}
+      sx={{ backgroundColor: "#ffd54b" }}
     >
-      <strong sx={{ backgroundColor: "#ffd54b" }}>Check Out</strong>
+      <Typography variant="body2" color="initial">
+        Check Out
+      </Typography>
     </Button>
   );
 };

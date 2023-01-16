@@ -16,17 +16,18 @@ import CartActions from "../CartActions";
 import { VIEW_DETAILS } from "../../reducers/shoppingCartSlice";
 
 export default function Product({ prod }) {
-  const { id, image, price, name, quantity, rating, cat } = prod;
+  const { image, price, name, quantity, rating, cat } = prod;
   const dispatch = useDispatch();
 
   return (
-    <Card className="fade" sx={{ maxWidth: 300, minHeight: 300 }}>
+    <Card className="fade" sx={{ width: 300, minHeight: 300 }}>
       <CardHeader
         title={cat.toUpperCase()}
         subheader={`In stock ${quantity}`}
-        sx={{ backgroundColor: "#ffd54b" }}
+        sx={{ backgroundColor: "#ffd54b", height: "30px" }}
       />
       <CardMedia
+        className="zoom"
         component="img"
         sx={{
           objectFit: "contain",
@@ -36,19 +37,23 @@ export default function Product({ prod }) {
         image={image}
         alt={name}
       />
-      <Stack divider={<Divider orientation="horizontal" flexItem />}>
+
+      <Stack
+        divider={<Divider orientation="horizontal" variant="middle" flexItem />}
+      >
         <CardContent>
+          <Rating name="read-only" value={parseInt(rating)} readOnly />
+          <Divider variant="middle" />
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ height: 80 }}
+            sx={{ height: 80, marginTop: "5px" }}
           >
             {name}
           </Typography>
           <Typography variant="h6" color="textSecundary">
             {accounting.formatMoney(price)}
           </Typography>
-          <Rating name="read-only" value={parseInt(rating)} readOnly />
         </CardContent>
         <CardActions
           className="center"
@@ -59,7 +64,7 @@ export default function Product({ prod }) {
           <Link to={`${ROUTES.VIEW_DETAILS}`}>
             <Button
               color="inherit"
-              onClick={() => dispatch(VIEW_DETAILS({ id: id }))}
+              onClick={() => dispatch(VIEW_DETAILS({ prod: prod }))}
               className="cartActions"
             >
               <VisibilityIcon sx={{ color: "gray" }} />

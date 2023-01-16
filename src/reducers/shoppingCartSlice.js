@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { productCarousel } from "../components/Products/db";
 
 const initialState = {
   counter: 0,
@@ -6,6 +7,7 @@ const initialState = {
   products: [],
   productToCheck: [],
   currentProduct: {},
+  newProducts: productCarousel,
 };
 
 let restCounter = 0;
@@ -15,7 +17,7 @@ export const shoppingCartSlice = createSlice({
   initialState,
   reducers: {
     GET_PRODUCTS: (state, action) => {
-      state.products = action.payload;
+      state.products = [...action.payload, ...state.newProducts];
     },
     ADD_OR_REMOVE: (state, action) => {
       const { prod, add } = action.payload;
@@ -30,13 +32,21 @@ export const shoppingCartSlice = createSlice({
         inCart: add ? prod.inCart + 1 : prod.inCart - 1,
         quantity: add ? prod.quantity - 1 : prod.quantity + 1,
       };
+
+      state.currentProduct = state.currentProduct ? product : {};
       const productMap = state.products.map((prod) =>
+        prod.id === product.id ? product : prod
+      );
+
+      const productMapNews = state.newProducts.map((prod) =>
         prod.id === product.id ? product : prod
       );
 
       const productMapToCheck = state.productToCheck.map((prod) =>
         prod.id === product.id ? product : prod
       );
+
+      state.newProducts = productMapNews;
       state.productToCheck = productMapToCheck;
       state.products = productMap;
 
@@ -61,7 +71,6 @@ export const shoppingCartSlice = createSlice({
       );
 
       //!Si la variable devuelve undefined es que el producto no se encuentra en el carrito por lo que suma el counter y se annade, sino
-
       //!Si devuelve un valor es q ya se encuentra x lo tanto solo hay q actualizar la cantidad in Cart del producto q ya esta con la cantidad que trae
       //!este mismo producto
 
@@ -99,12 +108,8 @@ export const shoppingCartSlice = createSlice({
     },
 
     VIEW_DETAILS: (state, action) => {
-      const { id } = action.payload;
-      const findCurrentProd = state.products.find(
-        (product) => product.id === id
-      );
-
-      if (findCurrentProd) state.currentProduct = findCurrentProd;
+      const { prod } = action.payload;
+      state.currentProduct = prod;
     },
   },
 });

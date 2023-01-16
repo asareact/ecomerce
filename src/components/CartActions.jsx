@@ -7,19 +7,32 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { useDispatch } from "react-redux";
+import { useToastContext } from "../context/ToastContext";
 import { ADD_OR_REMOVE, ADD_TO_CART } from "../reducers/shoppingCartSlice";
+import Toast from "./Toast";
 
 const CartActions = ({ prod }) => {
+  const { handleToast, msg, type } = useToastContext();
   const { inCart } = prod;
   const dispatch = useDispatch();
+  const [blink, setBlink] = React.useState(false);
+
+  const timer = () => {
+    setTimeout(() => {
+      setBlink(false);
+    }, 4000);
+  };
 
   return (
-    <Stack direction="row">
+    <>
       <IconButton
-        className="cartActions"
+        className={`cartActions ${blink ? "icon parpadea" : ""}`}
         disabled={inCart === 0}
         aria-label="Add to Cart"
-        onClick={() => dispatch(ADD_TO_CART({ prod: prod }))}
+        onClick={() => {
+          dispatch(ADD_TO_CART({ prod: prod }));
+          handleToast("success", "Product set in the cart succesfully!!");
+        }}
       >
         <AddShoppingCart fontSize="medium" />
       </IconButton>
@@ -34,7 +47,11 @@ const CartActions = ({ prod }) => {
         <Button
           className="cartActions"
           color="inherit"
-          onClick={() => dispatch(ADD_OR_REMOVE({ prod: prod, add: true }))}
+          onClick={() => {
+            dispatch(ADD_OR_REMOVE({ prod: prod, add: true }));
+            setBlink(true);
+            timer();
+          }}
           sx={{ minWidth: "max-content", padding: "0" }}
         >
           <AddIcon fontSize="medium" />
@@ -49,15 +66,17 @@ const CartActions = ({ prod }) => {
           disabled={inCart === 0}
           onClick={() => {
             if (inCart) {
-              console.log(inCart);
               dispatch(ADD_OR_REMOVE({ prod: prod, add: false }));
+              setBlink(true);
+              timer();
             }
           }}
         >
           <RemoveIcon fontSize="medium" />
         </Button>
       </Stack>
-    </Stack>
+      <Toast type={type} msg={msg} />
+    </>
   );
 };
 

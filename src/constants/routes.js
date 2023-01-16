@@ -3,4 +3,5 @@ export const ROUTES = {
   CHECKOUT_PAGE: "/checkout-page",
   CHECKOUT_STEPS: "/checkout-steps",
   VIEW_DETAILS: "/product",
+  SINGIN: "/authenticate",
 };

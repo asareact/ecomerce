@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+import { Stack } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import { useEffect } from "react";
@@ -16,18 +16,18 @@ export default function Products() {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1 }} className="grid-padding">
-      <Grid container spacing={4}>
+    <Stack className="grid-padding">
+      <Grid container spacing={3}>
         {productRedux.length === 0 ? (
           <Loader />
         ) : (
           productRedux.map((product) => (
-            <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
+            <Grid key={product.id} item xs={12} sm={6} md={4} lg={4}>
               <Product prod={product} />
             </Grid>
           ))
         )}
       </Grid>
-    </Box>
+    </Stack>
   );
 }

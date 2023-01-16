@@ -1,14 +1,9 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import { useContext } from 'react';
-import ProductsContext from '../../context/ProductsContext';
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
 
 export default function AddressForm() {
-
-  const {handleChange} = useContext(ProductsContext)
-
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -24,7 +19,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -36,7 +31,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="family-name"
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
         <Grid item xs={12}>
@@ -48,7 +43,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -60,7 +55,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -70,7 +65,7 @@ export default function AddressForm() {
             label="State/Province/Region"
             fullWidth
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -82,7 +77,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -94,7 +89,7 @@ export default function AddressForm() {
             fullWidth
             autoComplete="shipping country"
             variant="standard"
-            onChange={handleChange}
+            //onChange={(e) => dispatch(HANDLE_CHANGE({ e }))}
           />
         </Grid>
       </Grid>
